@@ -28,10 +28,11 @@
     roundsViewController.tabBarItem.title = @"Rounds";
     roundsViewController.tabBarItem.image = [UIImage imageNamed:@"Rounds"];
 
+    UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:roundsViewController];
+
     UITabBarController *tabBarController = [UITabBarController new];
-    
-    tabBarController.viewControllers = @[timeViewController,roundsViewController];
-    
+    tabBarController.viewControllers = @[timeViewController,navController];
+        
     self.window.rootViewController = tabBarController;
     
     return YES;

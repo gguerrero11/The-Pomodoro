@@ -18,20 +18,20 @@
 @implementation PORoundsViewController
 
 -(void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.tableView = [UITableView new];
-    CGRect roundsTableViewFrame = self.view.bounds;
-    self.tableView.frame = roundsTableViewFrame;
+    self.title = @"Rounds";
+    self.tableView = [[UITableView alloc]initWithFrame:self.view.frame];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
+    
+    
+    
 }
 
 -(NSArray *)returnRoundTimes {
     
-    self.roundTimes = @[@25,@5,@25,@5,@25,@5,@25,@15];
-    return self.roundTimes;
+    return self.roundTimes = @[@25,@5,@25,@5,@25,@5,@25,@15];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -42,16 +42,12 @@
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
+    
+    
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     
-    cell.textLabel.text = self.returnRoundTimes[indexPath.row];
-    
-    //cell.textLabel.text = @"HBAHAH";
-    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ Minutes",self.returnRoundTimes[indexPath.row]];
     return cell;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -63,7 +59,7 @@
 
 -(void)roundSelected {
     
-    [POTimer sharedInstance].minutes = (long)self.roundTimes[self.currentRound];
+    [POTimer sharedInstance].minutes;
     
     
 }
@@ -75,13 +71,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
