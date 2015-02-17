@@ -30,7 +30,6 @@
 }
 
 -(NSArray *)returnRoundTimes {
-    
     return self.roundTimes = @[@25,@5,@25,@5,@25,@5,@25,@15];
 }
 
@@ -59,9 +58,14 @@
 
 -(void)roundSelected {
     
-    [POTimer sharedInstance].minutes;
+    POTimer *timer = [POTimer sharedInstance];
+    NSArray *array = [self returnRoundTimes];
+    NSInteger index = self.currentRound;
     
-    
+    timer.minutes = 25; //array[index];       //bug: RETURNS HUGE NUMBER
+    timer.seconds = 0;
+    NSLog(@"%ld", (long)timer.minutes);
+    [[NSNotificationCenter defaultCenter]postNotificationName:currentRoundNotification object:nil];
 }
 
 

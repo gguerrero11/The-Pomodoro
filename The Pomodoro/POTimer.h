@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString * const currentRoundNotification = @"currentRoundNotification";
+static NSString * const secondTickNotification = @"secondTickNotification";
+
 @interface POTimer : NSObject
 
-@property (nonatomic, assign) NSInteger *minutes;
-@property (nonatomic, assign) NSInteger *seconds;
+@property (nonatomic, assign) NSInteger minutes;
+@property (nonatomic, assign) NSInteger seconds;
 
 +(POTimer *)sharedInstance;
 
--(void)startTimer;
+-(IBAction)startTimer:(id)sender;
 -(void)cancelTimer;
 
 @end

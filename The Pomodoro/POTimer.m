@@ -8,6 +8,7 @@
 
 #import "POTimer.h"
 
+
 @interface POTimer ()
 
 @property (nonatomic) BOOL isOn;
@@ -20,7 +21,7 @@
     static POTimer *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [POTimer new];     
+        sharedInstance = [POTimer new];
     });
     
     return sharedInstance;
@@ -28,7 +29,7 @@
 
 
 
--(void)startTimer {
+-(void)startTimer:(id)sender {
     
     self.isOn = YES;
     [self isActive];
@@ -38,9 +39,11 @@
 -(void)isActive {
     
     if (self.isOn == YES) {
+        [self decreaseSecond];
+        NSLog(@"%ld:%ld", (long)self.minutes, (long)self.seconds);
+
+        [self performSelector:@selector(isActive) withObject:nil afterDelay:1];
         
-    [self decreaseSecond];
-    [self performSelector:@selector(isActive) withObject:nil afterDelay:1];
     }
     
 }
@@ -56,19 +59,18 @@
     
     self.isOn = NO;
     
-    //currentRoundNotification
-    
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:currentRoundNotification object:nil];
 }
 
 -(void)decreaseSecond {
     
     
-    if (self.seconds > 0) {
+    if (self.seconds > -1) {
         
         self.seconds --;
+        [[NSNotificationCenter defaultCenter]postNotificationName:secondTickNotification object:nil];
     }
-    if (self.seconds == 0 && self.minutes > 0) {
+    if (self.seconds == -1 && self.minutes > 0) {
         
         self.minutes --;
         self.seconds = 59;
@@ -77,8 +79,6 @@
         
         [self endTimer];
     }
-    
-    //secondTickNotification
 }
 
 @end

@@ -19,9 +19,12 @@
 
 @implementation POTimerViewController
 
+
+
 -(id)init {
     self = [super init];
     if (self) {
+        self.poTimer = [POTimer sharedInstance];
         [self registerForNotifications];
     }
     return self;
@@ -29,23 +32,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)updateTimerLabel {
     
-    self.timer.text = [NSString stringWithFormat:@"%lu:%lu", (long)self.poTimer.minutes, (long)self.poTimer.seconds];
-    // SecondTickNotification
     
+    self.timer.text = [NSString stringWithFormat:@"%lu:%lu", (long)self.poTimer.minutes, (long)self.poTimer.seconds];
+}
+
+- (IBAction)startTimer:(id)sender {
+
+    [[POTimer sharedInstance] startTimer:sender];
 }
 
 -(void)registerForNotifications {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateTimerLabel) name:@"SecondTickNotification" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateTimerLabel) name:secondTickNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(newRound) name:currentRoundNotification object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)newRound {
+    NSLog(@"%lu", (long)self.poTimer.minutes);
+    [self updateTimerLabel];
+    
 }
 
 
