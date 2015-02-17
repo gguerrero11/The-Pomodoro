@@ -10,4 +10,6 @@
 
 @interface POTimerViewController : UIViewController
 
+-(id)init;
+
 @end
