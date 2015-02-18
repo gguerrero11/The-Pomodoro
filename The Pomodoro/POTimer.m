@@ -51,7 +51,7 @@
 -(void)cancelTimer {
     
     self.isOn = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(decreaseSecond) object:nil];
     
 }
 
@@ -73,7 +73,7 @@
     if (self.seconds == -1 && self.minutes > 0) {
         
         self.minutes --;
-        self.seconds = 59;
+        self.seconds = 60;
     }
     else if (self.seconds == 0 && self.minutes == 0) {
         

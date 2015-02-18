@@ -62,9 +62,9 @@
     NSArray *array = [self returnRoundTimes];
     NSInteger index = self.currentRound;
     
-    timer.minutes = 25; //array[index];       //bug: RETURNS HUGE NUMBER
+    timer.minutes = [array[index]integerValue];
     timer.seconds = 0;
-    NSLog(@"%ld", (long)timer.minutes);
+    NSLog(@"%d", (int)timer.minutes);
     [[NSNotificationCenter defaultCenter]postNotificationName:currentRoundNotification object:nil];
 }
 
